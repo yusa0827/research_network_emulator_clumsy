@@ -55,8 +55,8 @@ C:\Users\sasak\Desktop\Network_Emulator_clumsy\clumsy>
   
 ## main 関数を見つけ出す  
 git grep -i main  
-----------------------------------------  
-src/main.c:    // ! main loop won't return until program exit  
+
+>src/main.c:    // ! main loop won't return until program exit  
 src/main.c:int main(int argc, char* argv[]) {  
   
 →  
@@ -76,7 +76,7 @@ L.5
   
   
 L.504  
-int main(int argc, char* argv[]) {  
+>int main(int argc, char* argv[]) {  
     LOG("Is Run As Admin: %d", IsRunAsAdmin());  
     LOG("Is Elevated: %d", IsElevated());  
     init(argc, argv);  
@@ -91,7 +91,7 @@ IsRunAsAdmin()
   
 git grep IsRunAsAdmin  
 ----------------------------------------  
-src/common.h:BOOL IsRunAsAdmin();  
+>src/common.h:BOOL IsRunAsAdmin();  
 src/elevate.c:BOOL IsRunAsAdmin()  
   
 →  
@@ -152,7 +152,7 @@ GetTokenInformation 関数 (securitybaseapi.h)
   
 ## src/main.c init()  
 L.122  
-void init(int argc, char* argv[]) {  
+>void init(int argc, char* argv[]) {  
 で定義されていた  
   
 loadConfig();  
@@ -165,13 +165,14 @@ external/iup-3.30_Win64_mingw6_lib/include/iup_plus.h:    int LoadConfig() { ret
 ## src/main.c startup()  
   
 L.263  
+```
     // initialize seed  
     srand((unsigned int)time(NULL));  
   
     // kickoff event loops  
     IupShowXY(dialog, IUP_CENTER, IUP_CENTER);  
     IupMainLoop();  
-  
+```
 IupMainLoop();  
 が呼ばれている。。。  
   
@@ -182,7 +183,7 @@ main関数からの追跡はこれ以上できなかった。。。
   
 static short bandwidthProcess(PacketNode *head, PacketNode* tail)  
   
-  
+  ```
 //---------------------------------------------------------------------  
 // module  
 //---------------------------------------------------------------------  
@@ -197,10 +198,10 @@ Module bandwidthModule = {
     // runtime fields  
     0, 0, NULL  
 };  
-  
+  ```
   
 ## src/main.c の関数がどこで使われているかを確認する  
-  
+  ```
 // ! the order decides which module get processed first  
 Module* modules[MODULE_CNT] = {  
     &lagModule,  
@@ -212,10 +213,11 @@ Module* modules[MODULE_CNT] = {
     &resetModule,  
 	&bandwidthModule,  
 };  
-  
+  ```
+
 ## src/common.h の関数がどこで使われているかを確認する  
   
-  
+```  
 extern Module lagModule;  
 extern Module dropModule;  
 extern Module throttleModule;  
@@ -245,7 +247,7 @@ typedef struct {
     short processTriggered; // whether this module has been triggered in last step   
     Ihandle *iconHandle; // store the icon to be updated  
 } Module;  
-  
+```
   
 # "iup.h" "windivert.h"    
     
